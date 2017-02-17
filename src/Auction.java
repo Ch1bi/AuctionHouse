@@ -48,22 +48,27 @@ public class Auction implements IQuery {
 		//need to fix naming issue when creating Item object
 	}
 	
-	private void addParticipants(){
+	public void addParticipants(){
 		
-		System.out.println("Enter Participants followed by enter. When done enter -1");
 		
-		//toDO implement method
-		String name = scanner.nextLine();
-		Participant bidder = new Participant(name);
-		participants.add(bidder);
-		
-		while(name != "-1"){
+		while(scanner.hasNextLine()){
 			
-			addParticipants();
+			System.out.println("Enter Participants followed by enter. When done enter -1");
+			String name = scanner.nextLine().toLowerCase();
+			Participant bidder = new Participant(name);
+			participants.add(bidder);
+			System.out.println("size of list is " + participants.size());
+			
+			if(name.equals("done")){
+				
+				//move to starting the bidding
+				System.exit(0);
+			}
+			
 		}
 	}
 	
-	private void startAuction(){
+	public void startAuction(){
 		
 		System.out.println("We have an amazing item up for bid!");  
 		addItem();
