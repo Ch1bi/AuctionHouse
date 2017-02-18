@@ -1,4 +1,4 @@
 public interface IQuery{
 	
-	public Item query(Item item);
+	public void query(Item item);
 }

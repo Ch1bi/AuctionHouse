@@ -18,9 +18,9 @@ public class Participant implements IQuery {
 		this.name = newName;
 	}
 	
-	public Item query(Item item)
+	public void query(Item item)
 	{
-		return item;
+	
 	}
 	
 	public void addBid(int bid){

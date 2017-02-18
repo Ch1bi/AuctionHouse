@@ -9,12 +9,11 @@ public class Auction implements IQuery {
 	/*Class Variables*/
 	
 	private String name;
+	
 	private int currentBid = 0;
 	private int allowedBids = 4; // only 4 bids are allowed
-	//int counter = 3; //countdown of timer
 	
 	/*End Class Variables*/
-	Participant p;
 	
 	
 	/*Initializations*/
@@ -37,8 +36,6 @@ public class Auction implements IQuery {
 		this.name = newName;
 	}
 	
-	
-	 
 	 /*End Initializations*/
 	
 	
@@ -46,20 +43,19 @@ public class Auction implements IQuery {
 	/*Class Methods*/
 
 	@Override
-	public Item query(Item item) {
-		// TODO Auto-generated method stub
-		return item;
+	public void query(Item item) {
+		
+		
 	}
 	
 	//method when called starts the auction
 	public void startAuction(){
 		
 		System.out.println("We have an amazing item up for bid!");  
-		addItem();
 		
 	}
 	
-	private void addItem(){
+	public void addItem(){
 		//get the input, and read it in
 		//create the item
 		//add to list
@@ -69,13 +65,11 @@ public class Auction implements IQuery {
 		System.out.println(name + " up for bid");
 		System.out.println("The starting bid is set at");
 		int startingBid = scanner.nextInt();
-		currentBid = startingBid;
 		System.out.println("$" + startingBid);
+		currentBid = startingBid;
 		Item newItem = new Item(name, startingBid);
 		itemList.add(newItem);
-		
-		addParticipants();
-		
+				
 	}
 	
 	//add participants part of the auction
@@ -102,61 +96,55 @@ public class Auction implements IQuery {
 	//bidding process of auction
 	public void startBidding(){
 		
-		System.out.println("The current bid is set at " + itemList.get(0).getPrice());
-		System.out.println("Would anyone else like to bid");
-		System.out.println("Press b to bid");
-		String input = scanner.next().toLowerCase();
-		
-		System.out.println("Enter bidders name");
-		String name = scanner.next().toLowerCase();
-		
-		if(participants.contains(name)){
+		while(allowedBids > 0)
+		{
+			System.out.println("allowed bids is at " + allowedBids);
 			
-			System.out.println("What's your bid");
-			int bid = scanner.nextInt();
+			System.out.println("The current bid is set at " + currentBid);
+			System.out.println("Would anyone like to bid");
+			System.out.println("Press b to bid");
+			String input = scanner.next().toLowerCase();
 			
-			if(bid > currentBid){
+			System.out.println("Enter bidders name");
+			String name = scanner.next().toLowerCase();
+			
+			if(participants.contains(name)){
 				
-				currentBid = bid;
-				allowedBids --;
+				System.out.println("What's your bid");
+				int bid = scanner.nextInt();
 				
-				System.out.println("Success! Would anyone else like to bid?");
+				if(bid > currentBid){
+					
+					System.out.println("Bid Accepted!");
+					
+					currentBid = bid;
+					allowedBids --;
+					
+				}
+				
+				else{
+					
+					System.out.println("Bid is too low!");
+				}
 			}
-		}
-		
-		else{
 			
-			System.out.println("That participant doesn't exist, try again");
-			startBidding();
-		}
-		//startTimer();
+			else{
+				
+				System.out.println("That participant doesn't exist, try again");
+			}
+			
+		}		
+	
+}
+	/*End of Bidding Method*/
+	
+	//announces winner of auction
+	public void auctionWinner(){
+		
 		
 	}
 	
-	//toDo implement a timer at a later time
-	
-/*	 Timer timer = new Timer();
-	 
-		TimerTask task = new TimerTask(){
-			
-			public void run(){
-				
-				System.out.println("Going in " + counter);
-				counter--;
-				
-				if(counter < 0){
-					
-					timer.cancel();
-					System.out.println("sold!");
-				}
-			}
-		};
-	
-	public void startTimer (){
-		
-		timer.scheduleAtFixedRate(task, 1000, 1000);
-	}*/
-	
 	/*End Class Methods*/
+	
 	
 }
