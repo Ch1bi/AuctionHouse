@@ -1,9 +1,24 @@
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.Timer;
+import java.util.TimerTask;
+
 public class Auction implements IQuery {
 	
-	public String name;
+	/*Class Variables*/
+	
+	private String name;
+	//private int currentBid = 0;
+	int counter = 3; //countdown of timer
+	
+	/*End Class Variables*/
+	
+	
+	/*Initializations*/
+	 Scanner scanner = new Scanner(System.in);
+	 List<Item> itemList = new ArrayList<Item>(); //item list
+	 List<Participant> participants = new ArrayList<Participant>();
 	
 	public Auction(String name){
 		
@@ -20,15 +35,26 @@ public class Auction implements IQuery {
 		this.name = newName;
 	}
 	
-	 List<Item> itemList = new ArrayList<Item>(); //item list
-	 List<Participant> participants = new ArrayList<Participant>();
+	
 	 
-	 Scanner scanner = new Scanner(System.in);
+	 /*End Initializations*/
+	
+	
+		
+	/*Class Methods*/
 
 	@Override
 	public Item query(Item item) {
 		// TODO Auto-generated method stub
 		return item;
+	}
+	
+	//method when called starts the auction
+	public void startAuction(){
+		
+		System.out.println("We have an amazing item up for bid!");  
+		addItem();
+		
 	}
 	
 	private void addItem(){
@@ -39,15 +65,18 @@ public class Auction implements IQuery {
 		System.out.print("We have the ");
 		String name  = scanner.nextLine();
 		System.out.println(name + " up for bid");
-		System.out.print("The starting bid is");
+		System.out.println("The starting bid is set at");
 		int startingBid = scanner.nextInt();
 		System.out.println("$" + startingBid);
 		Item newItem = new Item(name, startingBid);
 		itemList.add(newItem);
 		
-		//need to fix naming issue when creating Item object
+		addParticipants();
+		
+		//toDO: need to fix count size issue later
 	}
 	
+	//add participants part of the auction
 	public void addParticipants(){
 		
 		
@@ -62,19 +91,38 @@ public class Auction implements IQuery {
 			if(name.equals("done")){
 				
 				//move to starting the bidding
-				System.exit(0);
+				startBidding();
 			}
 			
 		}
 	}
 	
-	public void startAuction(){
+	
+	//bidding process of auction
+	public void startBidding(){
 		
-		System.out.println("We have an amazing item up for bid!");  
-		addItem();
+		System.out.println("The current bid is set at " + itemList.get(0).getPrice());
+		System.out.println("Would anyone else like to bid");
+		startTimer();
 		
-		//Start the bid and add the participants
-		addParticipants();
 	}
+	
+	 Timer timer = new Timer();
+	 
+		TimerTask task = new TimerTask(){
+			
+			public void run(){
+				
+				System.out.println("Going in " + counter);
+				counter--;
+			}
+		};
+	
+	public void startTimer (){
+		
+		timer.scheduleAtFixedRate(task, 1000, 1000);
+	}
+	
+	/*End Class Methods*/
 	
 }

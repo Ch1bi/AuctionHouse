@@ -22,4 +22,9 @@ public class Participant implements IQuery {
 	{
 		return item;
 	}
+	
+	public void addBid(int bid){
+		
+		
+	}
 }
