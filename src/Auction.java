@@ -14,12 +14,13 @@ public class Auction implements IQuery {
 	//int counter = 3; //countdown of timer
 	
 	/*End Class Variables*/
+	Participant p;
 	
 	
 	/*Initializations*/
 	 Scanner scanner = new Scanner(System.in);
 	 List<Item> itemList = new ArrayList<Item>(); //item list
-	 List<Participant> participants = new ArrayList<Participant>();
+	 List<String> participants = new ArrayList<String>();
 	
 	public Auction(String name){
 		
@@ -85,7 +86,7 @@ public class Auction implements IQuery {
 			
 			System.out.println("Enter Participants followed by enter. When done, type done");
 			String name = scanner.nextLine().toLowerCase();
-			Participant bidder = new Participant(name);
+			String bidder = new String(name);
 			participants.add(bidder);
 			
 			if(name.equals("done")){
@@ -104,12 +105,12 @@ public class Auction implements IQuery {
 		System.out.println("The current bid is set at " + itemList.get(0).getPrice());
 		System.out.println("Would anyone else like to bid");
 		System.out.println("Press b to bid");
-		String input = scanner.next();
+		String input = scanner.next().toLowerCase();
 		
 		System.out.println("Enter bidders name");
 		String name = scanner.next().toLowerCase();
 		
-		if(name.equals(participants.get(1).getName())){
+		if(participants.contains(name)){
 			
 			System.out.println("What's your bid");
 			int bid = scanner.nextInt();
