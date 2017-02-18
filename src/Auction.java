@@ -9,8 +9,9 @@ public class Auction implements IQuery {
 	/*Class Variables*/
 	
 	private String name;
-	//private int currentBid = 0;
-	int counter = 3; //countdown of timer
+	private int currentBid = 0;
+	private int allowedBids = 4; // only 4 bids are allowed
+	//int counter = 3; //countdown of timer
 	
 	/*End Class Variables*/
 	
@@ -67,13 +68,13 @@ public class Auction implements IQuery {
 		System.out.println(name + " up for bid");
 		System.out.println("The starting bid is set at");
 		int startingBid = scanner.nextInt();
+		currentBid = startingBid;
 		System.out.println("$" + startingBid);
 		Item newItem = new Item(name, startingBid);
 		itemList.add(newItem);
 		
 		addParticipants();
 		
-		//toDO: need to fix count size issue later
 	}
 	
 	//add participants part of the auction
@@ -82,11 +83,10 @@ public class Auction implements IQuery {
 		
 		while(scanner.hasNextLine()){
 			
-			System.out.println("Enter Participants followed by enter. When done enter -1");
+			System.out.println("Enter Participants followed by enter. When done, type done");
 			String name = scanner.nextLine().toLowerCase();
 			Participant bidder = new Participant(name);
 			participants.add(bidder);
-			System.out.println("size of list is " + participants.size());
 			
 			if(name.equals("done")){
 				
@@ -103,11 +103,38 @@ public class Auction implements IQuery {
 		
 		System.out.println("The current bid is set at " + itemList.get(0).getPrice());
 		System.out.println("Would anyone else like to bid");
-		startTimer();
+		System.out.println("Press b to bid");
+		String input = scanner.next();
+		
+		System.out.println("Enter bidders name");
+		String name = scanner.next().toLowerCase();
+		
+		if(name.equals(participants.get(1).getName())){
+			
+			System.out.println("What's your bid");
+			int bid = scanner.nextInt();
+			
+			if(bid > currentBid){
+				
+				currentBid = bid;
+				allowedBids --;
+				
+				System.out.println("Success! Would anyone else like to bid?");
+			}
+		}
+		
+		else{
+			
+			System.out.println("That participant doesn't exist, try again");
+			startBidding();
+		}
+		//startTimer();
 		
 	}
 	
-	 Timer timer = new Timer();
+	//toDo implement a timer at a later time
+	
+/*	 Timer timer = new Timer();
 	 
 		TimerTask task = new TimerTask(){
 			
@@ -115,13 +142,19 @@ public class Auction implements IQuery {
 				
 				System.out.println("Going in " + counter);
 				counter--;
+				
+				if(counter < 0){
+					
+					timer.cancel();
+					System.out.println("sold!");
+				}
 			}
 		};
 	
 	public void startTimer (){
 		
 		timer.scheduleAtFixedRate(task, 1000, 1000);
-	}
+	}*/
 	
 	/*End Class Methods*/
 	

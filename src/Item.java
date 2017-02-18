@@ -31,16 +31,9 @@ public class Item {
 	
 	public void setPrice(int newPrice){
 		
-		if(newPrice > this.price){
+	
 			
 			this.price  = newPrice;
-		}
-		
-		else{
-			
-			System.out.println("Your bid is too low, please bid higher");
-		}
-		
 	}
 	
 	public String owner(){
