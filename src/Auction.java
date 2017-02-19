@@ -15,11 +15,12 @@ public class Auction implements IQuery {
 	
 	/*End Class Variables*/
 	
+	public String currentBidder = null;
 	
 	/*Initializations*/
 	 Scanner scanner = new Scanner(System.in);
 	 List<Item> itemList = new ArrayList<Item>(); //item list
-	 List<String> participants = new ArrayList<String>();
+	 List<Participant> participants = new ArrayList<Participant>();
 	
 	public Auction(String name){
 		
@@ -63,10 +64,12 @@ public class Auction implements IQuery {
 		System.out.print("We have the ");
 		String name  = scanner.nextLine();
 		System.out.println(name + " up for bid");
+		
 		System.out.println("The starting bid is set at");
 		int startingBid = scanner.nextInt();
 		System.out.println("$" + startingBid);
 		currentBid = startingBid;
+		
 		Item newItem = new Item(name, startingBid);
 		itemList.add(newItem);
 				
@@ -80,7 +83,8 @@ public class Auction implements IQuery {
 			
 			System.out.println("Enter Participants followed by enter. When done, type done");
 			String name = scanner.nextLine().toLowerCase();
-			String bidder = new String(name);
+			
+			Participant bidder = new Participant(name);
 			participants.add(bidder);
 			
 			if(name.equals("done")){
@@ -90,6 +94,31 @@ public class Auction implements IQuery {
 			}
 			
 		}
+	}
+	
+	public void checkBid(){
+		
+		System.out.println("What's your bid?");
+		int bid = scanner.nextInt();
+		
+		//add participants bid here
+		participants.
+		
+		if(bid > currentBid){
+			
+			System.out.println("Bid Accepted!");
+			
+			currentBid = bid;
+			allowedBids --;
+			
+		}
+		
+		else{
+			
+			System.out.println("Bid is too low!");
+		}
+		
+		
 	}
 	
 	
@@ -108,32 +137,26 @@ public class Auction implements IQuery {
 			System.out.println("Enter bidders name");
 			String name = scanner.next().toLowerCase();
 			
-			if(participants.contains(name)){
+			//easier to use enhanced for to get Participant names 
+			for(Participant p : participants)
+			{
+				if(name.equals(p.getName())){
+					
+					currentBidder = name;
+					
+					checkBid();
 				
-				System.out.println("What's your bid");
-				int bid = scanner.nextInt();
-				
-				if(bid > currentBid){
-					
-					System.out.println("Bid Accepted!");
-					
-					currentBid = bid;
-					allowedBids --;
-					
 				}
 				
-				else{
-					
-					System.out.println("Bid is too low!");
-				}
-			}
+				//if name isn't found the startBidding method is looped 
 			
-			else{
-				
-				System.out.println("That participant doesn't exist, try again");
-			}
-			
-		}		
+		}
+		
+		
+		}
+		
+		auctionWinner();
+		
 	
 }
 	/*End of Bidding Method*/
@@ -141,8 +164,10 @@ public class Auction implements IQuery {
 	//announces winner of auction
 	public void auctionWinner(){
 		
-		
+	
 	}
+	
+
 	
 	/*End Class Methods*/
 	

@@ -12,14 +12,9 @@ public class Item {
 		this.owner = null; //at auction start there is no owner
 	}
 	
-	public String getItem(){
+	public String getName(){
 		
 		return this.name;
-	}
-	
-	public void setItem(String name)
-	{
-		this.name = name;
 	}
 	
 

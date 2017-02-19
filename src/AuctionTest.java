@@ -7,7 +7,7 @@ public class AuctionTest {
 		auction.startAuction();
 		auction.addItem();
 		auction.addParticipants();
-		auction.auctionWinner();
+		
 	}
 
 }
