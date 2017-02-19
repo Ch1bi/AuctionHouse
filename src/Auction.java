@@ -102,21 +102,32 @@ public class Auction implements IQuery {
 		int bid = scanner.nextInt();
 		
 		//add participants bid here
-		participants.
 		
-		if(bid > currentBid){
+		for(Participant p : participants){
 			
-			System.out.println("Bid Accepted!");
-			
-			currentBid = bid;
-			allowedBids --;
-			
+			if(currentBidder.equals(p.getName())){
+				
+				if(bid > currentBid){
+					
+					System.out.println("Bid Accepted!");
+					p.setBid(bid);
+					System.out.println("This is " + p.getName());
+					System.out.println("The bid is " + p.getBid());
+					currentBid = bid;
+					allowedBids --;
+					
+				}
+				
+				else{
+					
+					System.out.println("Bid is too low!");
+				}
+				
+				
+				
+			}
 		}
-		
-		else{
-			
-			System.out.println("Bid is too low!");
-		}
+	
 		
 		
 	}
