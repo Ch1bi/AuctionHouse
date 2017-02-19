@@ -1,4 +1,4 @@
 public interface IQuery{
 	
-	public void query(Item item);
+	public void query(String itemName);
 }

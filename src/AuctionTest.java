@@ -5,9 +5,7 @@ public class AuctionTest {
 		
 		Auction auction = new Auction("diamonds");
 		auction.startAuction();
-		auction.addItem();
-		auction.addParticipants();
-		
+	
 	}
 
 }

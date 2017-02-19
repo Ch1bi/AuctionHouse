@@ -30,9 +30,9 @@ public class Participant implements IQuery {
 		this.bid = newBid;
 	}
 	
-	public void query(Item item)
+	public void query(String itemName)
 	{
-	
+		//toDo:implement method
 	}
 	
 }

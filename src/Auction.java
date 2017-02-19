@@ -1,8 +1,6 @@
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-import java.util.Timer;
-import java.util.TimerTask;
 
 public class Auction implements IQuery {
 	
@@ -11,7 +9,7 @@ public class Auction implements IQuery {
 	private String name;
 	
 	private int currentBid = 0;
-	private int allowedBids = 3; // only 3 bids are allowed
+	private int allowedBids = 1; // only 3 bids are allowed
 	private String currentBidder = null;
 	
 	private int currentItem = 0; //variable used to get currentItem being sold
@@ -46,15 +44,27 @@ public class Auction implements IQuery {
 	/*Class Methods*/
 
 	@Override
-	public void query(Item item) {
+	public void query(String itemName) {
 		
+		for(Item i : itemList){
+			
+			if(itemName == i.getName()){
+				
+				System.out.println("Item sold:" + i.getSold());
+				System.out.println("Sold price:" + i.getPrice());
+				System.out.println("Item owner:" + i.getOwner());
+			
+			}
+		}
 		
+
 	}
 	
 	//method when called starts the auction
 	public void startAuction(){
 		
 		System.out.println("We have an amazing item up for bid!");  
+		addItem();
 		
 	}
 	
@@ -67,6 +77,21 @@ public class Auction implements IQuery {
 		String name  = scanner.nextLine();
 		System.out.println(name + " up for bid");
 		
+		
+		for(int i = 0; i < itemList.size(); i++){
+			
+			if(name == itemList.get(i).getName()){
+				
+				System.out.println("Item has been bidden on");
+				
+				addItem();
+			}
+			
+			else{
+				
+				break;
+			}
+		}
 		System.out.println("The starting bid is set at");
 		int startingBid = scanner.nextInt();
 		System.out.println("$" + startingBid);
@@ -74,6 +99,9 @@ public class Auction implements IQuery {
 		
 		Item newItem = new Item(name, startingBid);
 		itemList.add(newItem);
+		System.out.println(itemList.get(currentItem).getName());
+		
+		addParticipants();
 				
 	}
 	
@@ -128,7 +156,7 @@ public class Auction implements IQuery {
 				
 				
 			}
-		}
+		}	
 	
 		
 		
@@ -191,6 +219,7 @@ public class Auction implements IQuery {
 				//the item when queried have the owner and price attached to it
 				itemList.get(currentItem).setOwner(highestBidder);
 				itemList.get(currentItem).setPrice(currentBid);
+				itemList.get(currentItem).setSold(true);
 			}
 			
 		}
@@ -198,13 +227,23 @@ public class Auction implements IQuery {
 		System.out.println("The " + itemList.get(currentItem).getName() + " is sold to "
 				+ highestBidder + " for " +"$" + itemList.get(currentItem).getPrice() +"!");
 		
-		//query item if user wants
+		System.out.println("Heres the information on the current item");
+		
+		//query item at end of auction
+		query(itemList.get(currentItem).getName());
+		
+		resetAuction();
+		
+	}
+	
+	public void resetAuction(){
 		
 		//clear the participant list, set currentBid to 0 
+		participants.clear();
 		//increment current item by 1 
-		//create a method that checks if item was previously sold
-	
-	
+		currentItem ++;
+		//start all over
+		
 	}
 	
 
