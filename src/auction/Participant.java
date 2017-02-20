@@ -1,3 +1,4 @@
+package auction;
 
 public class Participant implements IQuery {
 	
@@ -30,9 +31,10 @@ public class Participant implements IQuery {
 		this.bid = newBid;
 	}
 	
-	public void query(String itemName)
+	public String query(String itemName)
 	{
 		//toDo:implement method
+		return "";
 	}
 	
 }

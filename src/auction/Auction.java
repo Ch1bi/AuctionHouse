@@ -1,3 +1,4 @@
+package auction;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -44,18 +45,24 @@ public class Auction implements IQuery {
 	/*Class Methods*/
 
 	@Override
-	public void query(String itemName) {
+	public String query(String itemName) {
+		
+		String itemProps = null;
 		
 		for(Item i : itemList){
 			
 			if(itemName == i.getName()){
 				
-				System.out.println("Item sold:" + i.getSold());
+				itemProps = "Item sold: " + i.getSold() + "\nItem sold " +
+				i.getSold() + "\nItem owner:" + i.getOwner();
+				/*System.out.println("Item sold:" + i.getSold());
 				System.out.println("Sold price:" + i.getPrice());
-				System.out.println("Item owner:" + i.getOwner());
+				System.out.println("Item owner:" + i.getOwner());*/
 			
 			}
 		}
+		
+		return itemProps;
 		
 
 	}
@@ -82,7 +89,7 @@ public class Auction implements IQuery {
 			
 			if(name == itemList.get(i).getName()){
 				
-				System.out.println("Item has been bidden on");
+				System.out.println("Item has been bidded on");
 				
 				addItem();
 			}
@@ -227,11 +234,11 @@ public class Auction implements IQuery {
 		System.out.println("The " + itemList.get(currentItem).getName() + " is sold to "
 				+ highestBidder + " for " +"$" + itemList.get(currentItem).getPrice() +"!");
 		
-		System.out.println("Heres the information on the current item");
-		
 		//query item at end of auction
-		query(itemList.get(currentItem).getName());
+		System.out.println("Heres the information on the current item" + "\n" +query(itemList.get(currentItem).getName()));
 		
+		
+
 		resetAuction();
 		
 	}
@@ -242,7 +249,7 @@ public class Auction implements IQuery {
 		participants.clear();
 		//increment current item by 1 
 		currentItem ++;
-		//start all over
+		//start all over 	
 		
 	}
 	
