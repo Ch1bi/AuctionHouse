@@ -1,6 +1,6 @@
 ##AuctionHouse
 
-AuctionHouse is a small program/library for auctioning
+AuctionHouse is a small program/library for auctioning items.
 
 ## Installation
 
